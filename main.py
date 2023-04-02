@@ -14,8 +14,8 @@ help_commands='''/start - начать работу с ботом
 @dp.message_handler(commands=['start'])
 async def start_command(message: types.Message):
     username = message.from_user.full_name
-    answ1 = f'Здравствуйте, {username} !\n'
-    answ2 = 'Это чат-бот детского спортивного клуба "Атлант". Вы можете узнать все доступные команды в меню соощений или через команду \help.'
+    answ1 = f'Здравствуйте, {username}!\n'
+    answ2 = 'Это чат-бот детского спортивного клуба "Атлант" в Петергофе. Вы можете узнать все доступные команды в меню соощений или через команду \help.'
     answ1 += answ2
     await message.answer(answ1)
     await message.delete()
