@@ -26,10 +26,6 @@ async def help_command(message: types.Message):
     await message.answer(text=help_commands)
     await message.delete()
 
-#
-# @dp.message_handler()
-# async def echo(message: types.Message):
-#     await message.answer(text = message.text)
 
 
 if __name__ == '__main__':
