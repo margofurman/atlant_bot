@@ -12,15 +12,17 @@ help_commands='''/start - начать работу с ботом
 '''
 
 @dp.message_handler(commands=['start'])
-async def message_start(message: types.Message):
-    your_id = message.from_id
-    await message.answer(f'Здравствуйте, {your_id}! Это чат-бот детского спортивного клуба "Атлант".\
-     Вы можете узнать все доступные команды в меню соощений или через команду \help.')
+async def start_command(message: types.Message):
+    username = message.from_user.full_name
+    await message.answer(f'Здравствуйте, {username} !\n',
+        'Это чат-бот детского спортивного клуба "Атлант". Вы можете узнать все доступные команды в меню соощений или через команду \help.')
+    await message.delete()
 
 
 @dp.message_handler(commands=['help'])
-async def echo(message: types.Message):
+async def help_command(message: types.Message):
     await message.answer(text=help_commands)
+    await message.delete()
 
 #
 # @dp.message_handler()
