@@ -1,33 +1,34 @@
 from aiogram import Bot, Dispatcher, types, executor
-from config import bot_token
+from config import bot_token, help_commands, coaches
+from aiogram.types import ReplyKeyboardMarkup, ReplyKeyboardRemove, KeyboardButton
+
 
 bot = Bot(bot_token)
 dp = Dispatcher(bot)
 
-help_commands='''/start - начать работу с ботом 
-/help - вывести список всех команд
-/coaches - вывести список тренеров и информацию о них
-/news - подписаться на рассылку новостей из группы Вконтакте
-/free_class - записаться на первое бесплатное занятие 
-'''
+async def on_startup(_):
+    print('Bot was lunched successfully')
 
-@dp.message_handler(commands=['start'])
+@dp.message_handler(commands=['start', 'начать'])
 async def start_command(message: types.Message):
     username = message.from_user.full_name
-    answ1 = f'Здравствуйте, {username}!\n'
-    answ2 = 'Это чат-бот детского спортивного клуба "Атлант" в Петергофе. Вы можете узнать все доступные команды в меню соощений или через команду \help.'
-    answ1 += answ2
+    answ1 = f'Здравствуйте, {username}!\n Это чат-бот детского спортивного клуба "Атлант" в Петергофе. Вы можете узнать все доступные команды в меню соощений или через команду \help.'
     await message.answer(answ1)
     await message.delete()
 
 
-@dp.message_handler(commands=['help'])
+@dp.message_handler(commands=['help', 'команды'])
 async def help_command(message: types.Message):
-    await message.answer(text=help_commands)
+    await message.answer(text=help_commands, parse_mode='HTML')
+    await message.delete()
+
+@dp.message_handler(commands=['coaches', 'тренеры'])
+async def help_command(message: types.Message):
+    await message.answer(text=coaches, parse_mode='HTML')
     await message.delete()
 
 
 
 if __name__ == '__main__':
-    executor.start_polling(dp)
+    executor.start_polling(dp, on_startup=on_startup, skip_updates=True)
 
